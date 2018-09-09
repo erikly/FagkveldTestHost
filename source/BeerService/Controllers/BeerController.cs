@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using BeerService.Business;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeerService.Controllers
@@ -6,15 +6,23 @@ namespace BeerService.Controllers
     [Route("api/[controller]")]
     public class BeerController : Controller
     {
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IBeerBusiness _beerBusiness;
+
+        public BeerController(IBeerBusiness beerBusiness)
         {
-            return new string[] { "value1", "value2" };
+            _beerBusiness = beerBusiness;
         }
-        
-        [HttpPost]
-        public void Post([FromBody]string value)
+
+        [HttpGet]
+        public string Ping()
         {
+            return "test";
+        }
+
+        [HttpPost]
+        public void SaveBeer(int amount)
+        {
+            _beerBusiness.SaveBeer(amount);
         }
     }
 }
