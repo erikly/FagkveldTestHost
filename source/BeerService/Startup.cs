@@ -20,21 +20,32 @@ namespace BeerService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BeerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BeerDatabase")));
+            RegisterExternalServices(services);
             services.AddScoped<IBeerContext, BeerContext>();
-
+            services.AddTransient<IBeerBusiness, BeerBusiness>();
             services.AddMvc();
         }
 
+        protected virtual void RegisterExternalServices(IServiceCollection services)
+        {
+            services.AddDbContext<BeerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BeerDatabase")));
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, BeerContext context)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            ConfigureExternalServices(context);
+
             app.UseMvc();
+        }
+
+        protected virtual void ConfigureExternalServices(BeerContext context)
+        {
         }
     }
 }
