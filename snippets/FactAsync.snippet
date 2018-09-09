@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>  
+<CodeSnippets  
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">  
+    <CodeSnippet Format="1.0.0">  
+        <Header>  
+            <Title>xUnit Fact async</Title>
+			<Author>Erik Lydersen</Author>
+			<Shortcut>facta</Shortcut>
+        </Header>  
+        <Snippet>
+			<Imports>
+				<Import>
+					<Namespace>Xunit</Namespace>
+					<Namespace>System.Threading.Task</Namespace>
+				</Import>
+			</Imports>
+			<Declarations>
+				<Object>  
+					<ID>methodName</ID>  
+					<ToolTip>Replace with the name of the method.</ToolTip>  
+					<Default>Method_When_Then</Default>  
+				</Object>  
+			</Declarations>
+            <Code Language="CSharp">  
+                <![CDATA[[Fact]
+				public async Task $methodName$()
+				{
+				    // ARRANGE
+					$end$
+					
+					// ACT
+					
+					
+					// ASSERT
+					
+				}]]>  
+            </Code>  
+        </Snippet>  
+    </CodeSnippet>  
+</CodeSnippets>  
